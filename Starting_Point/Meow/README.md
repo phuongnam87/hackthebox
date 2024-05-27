@@ -1,72 +1,19 @@
-# Meow | HackTheBox Write-up
+# Meow Write-up
+
+\# BlueBrain
 
 ## Introduction
-This box introduces us to many basic concepts and tools used in ethical hacking. We explore using commands such as: ping, nmap, telnet, and more. For this box, to capture the flag, we need to ultimately login to the telnet service running on the box in order to read the file containing the flag (flag.txt).
+
+When first starting a penetration test or any security evaluation on a target, a primary step is known as `Enumeration`. This step consists of documenting the current state of the target to learn as much as possible about it.
+
+Since you are now on the same Virtual Private Network (VPN) as the target, you can directly access it as any user would. If the target is a web server, running a public web page, you can navigate to its IP address to see what the page contains. If the target is a storage server, you can connect to it using the same IP address to explore the files and folders stored on it, provided that you have the necessary credentials. The question is, how do you find these services? You cannot manually search for them because it would take a long time.
+
+Every server uses `ports` in order to serve data to other clients. The first steps in the Enumeration phase involve scanning these open ports to see the purpose of the target on the network and what potential vulnerabilities might appear from the services running on it. In order to quickly scan for ports, we can use a tool called `nmap` , which we will detail more in the Enumeration chapter of this write-up.
+
+After finding the open ports on the target, we can manually access each of them using different tools to find out if we have access to their contents or not. Different services will use different tools or scripts to be accessed. These can be discovered and learned by a beginner penetration tester only with time and practice (and some diligent Googling). 90% of penetration testing consists of research done on the internet about the product you are testing. Since the technological ecosystem is continuously evolving, it is impossible to know everything about everything. The key is to know how to look for the information you need. The ability to research effectively is the skill you need to continuously adapt and evolve into your top quality.
+
+The objective here is not speed but meticulousness. If a resource on the target is missed during the Enumeration phase of your test, you might lose a vital attack vector which would have potentially cut your worktime on the target in half or even less.
 
 ## Enumeration
-To start off, we `ping` (also known as an ICMP (internet control message protocol) echo test) the target box (computer) in order to make sure it is actually alive:
 
-![](meow-poc-1.png)
-
-Since we are receiving back packets from the target computer, we can confirm it it up and running.
-
-Next, we are going to run an `nmap` (network map) to enumarate for running services and their respective posts on the target machine:
-
-![](meow-poc-2.png)
-
-We can see that port 23 is open, running the service `telnet`. Telnet is an old text-based protocol that allows for remote computer access.
-
-## Telnet
-
-Using the `telnet` command, we can try to login to the target machine:
-
-![](meow-poc-3.png)
-
-We are met with a login screen.
-
-After trying various login usernames, we were granted access without a password using login name `root`.
-
-![](meow-poc-4.png)
-
-Using the command `ls` (list) we can view what contents are in the current directory.
-
-![](meow-poc-5.png)
-
-We see the `flag.txt` file, which is what we are looking for to complete the box. Using the `cat` (concatenate) command we can view the contents of the file.
-
-![](meow-poc-6.png)
-
-As we can see, we have captured the flag for this box.
-
-## Various Questions:
-
-### What does the acronym VM stand for?
-
-`Virtual Machine`
-
-### What tool do we use to interact with the operating system in order to issue commands via the command line, such as the one to start our VPN connection? It's also known as a console or shell.
-
-`terminal`
-
-### What service do we use to form our VPN connection into HTB labs?
-
-`openvpn`
-
-### What tool do we use to test our connection to the target with an ICMP echo request?
-
-`ping`
-
-### What is the name of the most common tool for finding open ports on a target?
-
-`nmap`
-
-### What service do we identify on port 23/tcp during our scans?
-
-`telnet`
-
-### What username is able to log into the target over telnet with a blank password?
-
-`root`
-
-### Submit root flag
-\#BlueBrain
+After our VPN connection is successfully established, we can ping the target's IP address to see if our packets reach their destination. You can take the IP address of your current target from the Starting Point lab's page and paste it into your terminal after typing in the ping command as illustrated below.
